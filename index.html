@@ -410,8 +410,11 @@ function sendWA(){
   var d=document.getElementById('f_dates').value||'—';
   var r=document.getElementById('f_room').value||'—';
   var g=document.getElementById('f_guests').value||'—';
-  var t='Здравствуйте! Заявка на бронирование.%0AИмя: '+n+'%0AТелефон: '+p+'%0AДаты: '+d+'%0AНомер: '+r+'%0AГостей: '+g;
-  window.open('https://wa.me/79933022006?text='+t,'_blank');
+  if(p==='—'){alert('Пожалуйста, укажите телефон');return;}
+  var msg='Здравствуйте! Заявка на бронирование.\nИмя: '+n+'\nТелефон: '+p+'\nДаты: '+d+'\nНомер: '+r+'\nГостей: '+g;
+  fetch('https://formspree.io/f/myewvdbl',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,dates:d,room:r,guests:g})});
+  window.open('https://wa.me/79183811641?text='+encodeURIComponent(msg),'_blank');
+  alert('Заявка отправлена! Мы скоро с вами свяжемся.');
 }
 </script>
 </body>
